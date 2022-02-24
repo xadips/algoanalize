@@ -1,0 +1,176 @@
+\documentclass[a4paper,lithuanian]{article}
+% Hello
+\usepackage[utf8]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{language=Pascal,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\color{black},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\title{Algoritmų Analizė 1 N.D}
+
+\author{
+  Ričardas Čubukinas 1910620\\
+  Informatika III kursas\\
+  VU MIF
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Uždavinys}
+\subsection*{(a)}
+$f(n)=\overbrace{\sum_{k=2}^{n-1}k^2}^{\hbox{1}}-{\overbrace{(\sum_{k=3}^{n}k}^{\hbox{2}})^2}$
+\begin{enumerate}
+  \item{$\sum_{k=2}^{n-1}k^2 = \sum_{k=1}^{n-1}k^2 - 1 = \frac{(k-1)((k-1)+1)(2(k-1)+1)}{6}-1=\frac{k(k-1)(2k-1)}{6}-1$}
+  \item{$\sum_{k=3}^{n}k =  \sum_{k=1}^{n}k - 3 = k*\frac{k+1}{2} - 3 = \frac{k^2+k-6}{2}$}
+\end{enumerate}
+\begin{equation}
+  \begin{aligned}
+    f(n) & = \sum_{k=2}^{n-1}k^2-(\sum_{k=3}^{n}k)^2\\
+         & = \frac{k(k-1)(2k-1)}{6}-1-{(\frac{k^2+k-6}{2})}^2\\
+         & = \frac{-3k^4-2k^3+27k^2+38k}{12}
+  \end{aligned}
+\end{equation}
+\subsection*{(b)}
+Kadangi funkcija neauga eksponentiškai, rasime asimptotiką, t.y $a$ ir $b$ tokias kad, $f(n)\sim{}an^b$, kai $n\rightarrow{}\infty{}$
+\begin{equation}
+\lim_{n\rightarrow{}\infty{}}\frac{\overbrace{-3n^4}^{}-2n^3+27n^2+38n}{12an^b} = 1
+\end{equation}
+\begin{equation}
+  \frac{-3*n^4}{12an^b} \Rrightarrow{} \begin{cases} a = -\frac{1}{4} \\ b = 4  \end{cases}
+\end{equation}
+\begin{equation}
+f(n)\sim{}-\frac{n^4}{4}
+\end{equation}
+\section{Uždavinys}
+\subsection*{(a)}
+Duotas sveikų skaičių masyvas $A[1 : n]; c = 2$.
+\begin{multicols}{2}
+  \begin{lstlisting}
+for j := 1 to n do
+  C[j] := 0
+  i := n
+    while i >= j do
+      C[j] := C[j] + A[i]
+      i := i - 1
+  if C[j] < 0 then C[j] := 0
+  \end{lstlisting}
+  \columnbreak
+  $2(n+1)$\\
+  $n$\\
+  $n$\\
+  $\sum_{i=1}^{n}i + n$\\
+  $\sum_{i=1}^{n}i$\\
+  $\sum_{i=1}^{n}i$\\
+  $2n$\\
+\end{multicols}
+\begin{equation}
+  \begin{aligned}
+    L(n)&=2(n+1)+n+n+3\sum_{i=1}^{n}i+n+2n\\
+        &=2n + 2 + n + n  + \frac{3n(n+1)}{2} + n + 2n\\
+        &=\frac{3n^2+17n+4}{2}
+  \end{aligned}
+\end{equation}
+\subsection*{(b)}
+\begin{equation}
+L(n)\sim{}a*n^b
+\end{equation}
+\begin{equation}
+  \lim_{n\rightarrow\infty{}}\frac{f(n)}{g(n)}=1
+\end{equation}
+\begin{equation}
+  \lim_{n\rightarrow\infty{}}\frac{\overbrace{3n^2}^{}+17n+4}{2an^b}=1
+\end{equation}
+\begin{equation}
+  \frac{3n^2}{2an^b} \Rrightarrow{} \begin{cases} a = \frac{3}{2} \\ b = 2  \end{cases}
+\end{equation}
+\begin{equation}
+L(n)\sim{}\frac{3n^2}{2}
+\end{equation}
+\subsection*{(c)}
+Pasirinksime „blogiausius“ duomenis kai $n = c = 2$. Pakanka jog paskutinis masyvo skaičius būtų neigiamas ir masyvo skaičių suma būtų neigiama, tarkime $A = [-2, -5]$.
+Kadangi $L(2) = \frac{3\cdot{4}+17\cdot{2}+4}{2}=25$, tai bus atlikti 25 žingsniai:
+\begin{lstlisting}
+j := 1
+1 <= 2? TRUE
+C[1] = 0
+i := 2
+2 >= 1? TRUE
+C[1] := -5
+i := 1
+1 >= 1? TRUE
+C[1] := -7
+i := 0
+0 >= 1? FALSE
+-7 < 0? TRUE
+C[1] := 0
+j := 2
+2 <= 2? TRUE
+C[2] := 0
+i := 2
+2 >= 2? TRUE
+C[2] = -5
+i := 1
+1 >= 2? FALSE
+-5 < 0? TRUE
+C[2] = 0
+j := 3
+3 <= 2? FALSE
+\end{lstlisting}
+\subsection*{(d)}
+Skaičiuojant programos vykdymo laiką kiekvieną komandos eilutę „dauginsime“ iš konstantos $c_i$ atitinkančios tos eilutės vykdymo laiką:
+\begin{multicols}{2}
+  \begin{lstlisting}
+for j := 1 to n do
+  C[j] := 0
+  i := n
+    while i >= j do
+      C[j] := C[j] + A[i]
+      i := i - 1
+  if C[j] < 0 then C[j] := 0
+  \end{lstlisting}
+  \columnbreak
+  $c_12(n+1)$\\
+  $c_2n$\\
+  $c_3n$\\
+  $c_4(\sum_{i=1}^{n}i + n)$\\
+  $c_5\sum_{i=1}^{n}i$\\
+  $c_6\sum_{i=1}^{n}i$\\
+  $c_72n$\\
+\end{multicols}
+Turime $\sum_{i=1}^{n}i=\frac{n(n+1)}{2}$. Apskaičiuojame $T(n)$:
+\begin{equation}
+  \begin{aligned}
+    T(n) &= c_{1}2(n+1)+n(c_2+c_3+c_4+2c_7)+(c_4+c_5+c_6)(\frac{n^2}{2}+\frac{n}{2})\\
+         &= \frac{c_4+c_5+c_6}{2}n^2 + (c_2 + c_3 + \frac{3c_4}{2} + \frac{c_5}{2} + \frac{c_6}{2} + 2c_7)n + 2c_1\\
+         &= An^2 + Bn + C
+  \end{aligned}
+\end{equation}
+Taigi, $T(n) = \Theta{(n^2)}$. Kadangi $\Theta{}(n^d)$, kai $n\rightarrow{}\infty{}$ programos vykdymo laiko eilė $d = 2$. Kitaip tariant tai yra „kvadratinio sudėtingumo“ algoritmas.
+\end{document}
