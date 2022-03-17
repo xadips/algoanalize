@@ -1,0 +1,144 @@
+\documentclass[a4paper,lithuanian]{article}
+% Hello
+\usepackage[utf8]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{language=Pascal,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\color{black},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\title{Algoritmų Analizė 2 N.D\\25 Variantas}
+
+\author{
+  Ričardas Čubukinas 1910620\\
+  Informatika III Kursas 2 Grupė\\
+  VU MIF
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Uždavinys}
+\subsection*{(a)}
+\[f(n)=10n\log_2{n}+100n,\quad{}g(n)=n\cdot{}4^{\log_2{}\log_{2}n}.\]
+Įsivedę naują kintamąjį $k=\log_2{n}$ paskaičiuokime šiu funkcijų santykio ribą:
+\begin{equation}
+  \begin{aligned}
+    \lim_{n\rightarrow\infty{}}\frac{g(n)}{f(n)} &= \lim_{n\rightarrow\infty{}}\frac{n\cdot{}4^{\log_2{}\log_{2}n}}{10n\log_2{n}+100n}\\
+                                                 &= \frac{1}{10}\cdot{}\lim_{n\rightarrow\infty{}}\frac{\cancel{n}\cdot{}\log_{2}^{2}{n}}{\cancel{n}\cdot{}(\log_2{n}+10)}\\
+                                                 &=\frac{1}{10}\cdot{}\lim_{k\rightarrow\infty{}}\frac{k^2}{k+10} | : k\\
+                                               &=\frac{1}{10}\cdot{}\frac{\overbrace{\lim_{k\rightarrow\infty{}}k}^{\hbox{\infty{}}}}{\underbrace{\lim_{k\rightarrow\infty{}}(1+\frac{10}{k})}_{\hbox{1}}} =\infty{}
+  \end{aligned}
+\end{equation}
+
+\begin{center}
+\begin{tabular}{c c|c c c c c}
+  \hline
+  \multicolumn{2}{c|}{} & $O$ & $o$ & $\Omega{}$ & $\omega{}$ & \Theta{}\\
+  \hline
+  \scriptsize{$10n\log_2{n}+100n$}&\scriptsize{$n\cdot{}4^{\log_2{}\log_{2}n}$} & $+$ & $+$ & $-$ & $-$ & $-$\\
+  \scriptsize{$n\cdot{}4^{\log_2{}\log_{2}n}$}&\scriptsize{$10n\log_2{n}+100n$} & $-$ & $-$ & $+$ & $+$ & $-$\\
+  \hline
+\end{tabular}
+\end{center}
+\subsection*{(b)}
+Bandymų ir klaidų metodu randame $N_f$ bei $N_g$,- gauname:
+\begin{equation}
+\begin{aligned}
+&N_f=4516\Rightarrow{}\begin{cases}
+f(4516) < 10^6 \\
+f(4517) > 10^6
+\end{cases}\\
+&N_g=6281\Rightarrow{}\begin{cases}
+g(6281) < 10^6\\
+g(6282) > 10^6
+\end{cases}
+\end{aligned}
+\end{equation}
+
+
+\section{Uždavinys}
+\subsection*{(a)}
+Turime funkcijas:
+\[f_1(n)=10n^{\log_2{3}},f_2(n)=10n\sqrt{n},f_3(n)=\frac{n^2}{\log_2{n}},f_4(n)=n\cdot{}(\sqrt{2})^{\log_2{n}},f_5(n)=2^{\sqrt{n}}\]
+
+Pirmiausia pertvarkome $f_4$
+\[f_4(n)=n\cdot{}(\sqrt{2})^{\log_2{n}}=n\sqrt{n}\]
+Funkcijos didėjimo tvarka išsidėstys taip:
+\[f_4(n)=n\sqrt{n},f_2(n)=10n\sqrt{n},f_1(n)=10n^{\log_2{3}},f_3(n)=\frac{n^2}{\log_2{n}},f_5(n)=2^{\sqrt{n}}\]
+Įsitikinkime:\\
+\begin{equation}
+  n\sqrt{n}=\Theta{(10n\sqrt{n})}, \text{nes }n\sqrt{n}=0.1 \cdot{}10n\sqrt{n}
+\end{equation}
+\begin{equation}
+  \lim_{n\rightarrow\infty{}}\frac{\cancel{10}n\sqrt{n}}{\cancel{10}n^{\log_2{3}}}
+ =\lim_{n\rightarrow\infty{}}\frac{n^{\frac{3}{2}}}{n^{\log_2{3}}}
+ =\lim_{n\rightarrow\infty{}}\frac{1}{n^{\frac{2\log_2{3}-3}{2}}}
+ =0
+\end{equation}
+\begin{equation}
+  \begin{aligned}
+    &\lim_{n\rightarrow\infty{}}\frac{10n^{\log_2{3}}}{\frac{n^2}{\log_2{n}}} =10\cdot{}\lim_{n\rightarrow\infty{}}\frac{n^{\log_2{3}}\log_2{n}}{n^2}\\
+    &=10\cdot{}\lim_{n\rightarrow\infty{}}\frac{\log_2{n}}{n^{2-log_2{3}}}
+    =10\cdot{}\lim_{n\rightarrow\infty{}}\frac{\frac{1}{n \ln{2}}}{n^{2-log_2{3}}\cdot{}\ln{n}}\\
+    &=\frac{10}{\ln{2}}\cdot{}\lim_{n\rightarrow\infty{}}\frac{1}{n^{3-log_2{3}}\cdot{}\ln{n}}
+    =\frac{10}{\ln{2}}\cdot{}0=0
+  \end{aligned}
+\end{equation}
+Tebūnie $k = \sqrt{n}$
+\begin{equation}
+  \begin{aligned}
+  \lim_{n\rightarrow\infty{}}\frac{\frac{n^2}{\log_2{n}}}{2^\sqrt{n}}
+  &=\lim_{n\rightarrow\infty{}}\frac{n^2}{2^{\sqrt{n}}\cdot{}\log_2{n}}
+  =\lim_{k\rightarrow\infty{}}\frac{k^4}{2^{k}\cdot{}\log_2{k^2}}\\
+  &=\lim_{k\rightarrow\infty{}}\frac{4k^3}{2^{k}\cdot{}\frac{2}{\ln{(2)}k}\cdot{}\ln{2}}
+  =2\cdot{}\lim_{k\rightarrow\infty{}}\frac{k^3}{2^{k}}\\
+  &=\frac{6}{\ln{2}}\cdot{}\lim_{k\rightarrow\infty{}}\frac{k^2}{2^{k}}
+  =\frac{12}{\ln^{2}{2}}\cdot{}\lim_{k\rightarrow\infty{}}\frac{k}{2^{k}}\\
+  &=\frac{12}{\ln^{3}{2}}\cdot{}\lim_{k\rightarrow\infty{}}\frac{1}{2^{k}}
+  =\frac{12}{\ln^{3}{2}}\cdot{}0=0
+  \end{aligned}
+\end{equation}
+\subsection*{(b)}
+Įstatę $n=16$, gauname:
+\[f_1(16)=810,~f_2(16)=640,~f_3(16)=64,~f_4(16)=64,~f_5(16)=16\]
+Taigi reikšmės išsidėsto taip:
+\[f_5(16) < f_4(16) = f_3(16) < f_2(16) < f_1(16)\]
+
+\subsection*{(c)}
+Įstatę $n=2^{16}$, gauname:
+\[f_1(2^{16})=10*3^{16},~f_2(2^{16})=10*2^{24},~f_3(2^{16})=2^{28},~f_4(2^{16})=2^{24},~f_5(2^{16})=2^{256}\]
+Taigi reikšmės išsidėsto taip:
+\[f_4(2^{16}) < f_2(2^{16}) < f_3(2^{16}) < f_1(2^{16}) < f_5(2^{16})\]
+\textbf{Ats:.} Funkcijos išsidėstė tokia tvarka (a) 42135 (b) 54321 (c) 42315
+
+
+\end{document}
