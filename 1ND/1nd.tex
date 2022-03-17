@@ -9,6 +9,8 @@
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -31,7 +33,7 @@
   tabsize=4
 }
 
-\title{Algoritmų Analizė 1 N.D}
+\title{Algoritmų Analizė 1 N.D\\2 Variantas}
 
 \author{
   Ričardas Čubukinas 1910620\\
@@ -47,23 +49,26 @@
 \subsection*{(a)}
 $f(n)=\overbrace{\sum_{k=2}^{n-1}k^2}^{\hbox{1}}-{\overbrace{(\sum_{k=3}^{n}k}^{\hbox{2}})^2}$
 \begin{enumerate}
-  \item{$\sum_{k=2}^{n-1}k^2 = \sum_{k=1}^{n-1}k^2 - 1 = \frac{(k-1)((k-1)+1)(2(k-1)+1)}{6}-1=\frac{k(k-1)(2k-1)}{6}-1$}
-  \item{$\sum_{k=3}^{n}k =  \sum_{k=1}^{n}k - 3 = k*\frac{k+1}{2} - 3 = \frac{k^2+k-6}{2}$}
+  \item{$\sum_{k=2}^{n-1}k^2 = \sum_{k=1}^{n-1}k^2 - 1 = \frac{(n-1)((n-1)+1)(2(n-1)+1)}{6}-1=\frac{n(n-1)(2n-1)}{6}-1$}
+  \item{$\sum_{k=3}^{n}k =  \sum_{k=1}^{n}k - 3 = n*\frac{n+1}{2} - 3 = \frac{n^2+n-6}{2}$}
 \end{enumerate}
 \begin{equation}
   \begin{aligned}
     f(n) & = \sum_{k=2}^{n-1}k^2-(\sum_{k=3}^{n}k)^2\\
-         & = \frac{k(k-1)(2k-1)}{6}-1-{(\frac{k^2+k-6}{2})}^2\\
-         & = \frac{-3k^4-2k^3+27k^2+38k}{12}
+         & = \frac{n(n-1)(2n-1)}{6}-1-{(\frac{n^2+n-6}{2})}^2\\
+         & = \frac{-3n^4-2n^3+27n^2+38n-120}{12}
   \end{aligned}
 \end{equation}
 \subsection*{(b)}
 Kadangi funkcija neauga eksponentiškai, rasime asimptotiką, t.y $a$ ir $b$ tokias kad, $f(n)\sim{}an^b$, kai $n\rightarrow{}\infty{}$
 \begin{equation}
-\lim_{n\rightarrow{}\infty{}}\frac{\overbrace{-3n^4}^{}-2n^3+27n^2+38n}{12an^b} = 1
+  \frac{-3*n^4}{12an^b} \Rrightarrow{} \begin{cases} a = -\frac{1}{4} \\ b = 4  \end{cases}
 \end{equation}
 \begin{equation}
-  \frac{-3*n^4}{12an^b} \Rrightarrow{} \begin{cases} a = -\frac{1}{4} \\ b = 4  \end{cases}
+  \begin{aligned}
+    & \lim_{n\rightarrow{}\infty{}}\frac{-3n^4-2n^3+27n^2+38n-120}{12an^b} & \\
+    &= \lim_{n\rightarrow{}\infty{}}\underbrace{\frac{\cancel{-3n^4}}{\cancel{-3n^4}}}_{\hbox{1}} - \underbrace{\frac{2\cancel{n^3}}{3n^\cancel{4}}}_{\hbox{0}} + \underbrace{\frac{27\cancel{n^2}}{-3n^\cancel{4}2}}_{\hbox{0}} + \underbrace{\frac{38\cancel{n}}{-3n^\cancel{4}3}}_{\hbox{0}} - \underbrace{\frac{120}{3n^{4}}}_{\hbox{0}} = 1
+  \end{aligned}
 \end{equation}
 \begin{equation}
 f(n)\sim{}-\frac{n^4}{4}
@@ -85,14 +90,15 @@ for j := 1 to n do
   $2(n+1)$\\
   $n$\\
   $n$\\
-  $\sum_{i=1}^{n}i + n$\\
-  $\sum_{i=1}^{n}i$\\
-  $\sum_{i=1}^{n}i$\\
+  $\sum_{j=1}^{n}t_j + n$\\
+  $\sum_{j=1}^{n}t_j$\\
+  $\sum_{j=1}^{n}t_j$\\
   $2n$\\
 \end{multicols}
+$t_j$ yra ciklo while kūno vykdymo kartų skaičius, priklausantis nuo $j$.
 \begin{equation}
   \begin{aligned}
-    L(n)&=2(n+1)+n+n+3\sum_{i=1}^{n}i+n+2n\\
+    L(n)&=2(n+1)+n+n+3\sum_{j=1}^{n}t_j+n+2n\\
         &=2n + 2 + n + n  + \frac{3n(n+1)}{2} + n + 2n\\
         &=\frac{3n^2+17n+4}{2}
   \end{aligned}
@@ -102,13 +108,17 @@ for j := 1 to n do
 L(n)\sim{}a*n^b
 \end{equation}
 \begin{equation}
+  \frac{3n^2}{2an^b} \Rrightarrow{} \begin{cases} a = \frac{3}{2} \\ b = 2  \end{cases}
+\end{equation}
+\begin{equation}
   \lim_{n\rightarrow\infty{}}\frac{f(n)}{g(n)}=1
 \end{equation}
 \begin{equation}
-  \lim_{n\rightarrow\infty{}}\frac{\overbrace{3n^2}^{}+17n+4}{2an^b}=1
-\end{equation}
-\begin{equation}
-  \frac{3n^2}{2an^b} \Rrightarrow{} \begin{cases} a = \frac{3}{2} \\ b = 2  \end{cases}
+  \begin{aligned}
+  & \lim_{n\rightarrow\infty{}}\frac{3n^2+17n+4}{2an^b} \\
+  &= \lim_{n\rightarrow\infty{}}\underbrace{\frac{\cancel{3n^2}}{\cancel{3n^2}}}_{\hbox{1}} + \underbrace{\frac{17\cancel{n}}{3n^{\cancel{2}}}}_{\hbox{0}} + \underbrace{\frac{4}{3n^2}}_{\hbox{0}} 
+  &= 1
+  \end{aligned}
 \end{equation}
 \begin{equation}
 L(n)\sim{}\frac{3n^2}{2}
@@ -159,12 +169,12 @@ for j := 1 to n do
   $c_12(n+1)$\\
   $c_2n$\\
   $c_3n$\\
-  $c_4(\sum_{i=1}^{n}i + n)$\\
-  $c_5\sum_{i=1}^{n}i$\\
-  $c_6\sum_{i=1}^{n}i$\\
+  $c_4(\sum_{j=1}^{n}t_j + n)$\\
+  $c_5\sum_{j=1}^{n}t_j$\\
+  $c_6\sum_{j=1}^{n}t_j$\\
   $c_72n$\\
 \end{multicols}
-Turime $\sum_{i=1}^{n}i=\frac{n(n+1)}{2}$. Apskaičiuojame $T(n)$:
+Turime $\sum_{j=1}^{n}t_j=\frac{n(n+1)}{2}$. Apskaičiuojame $T(n)$:
 \begin{equation}
   \begin{aligned}
     T(n) &= c_{1}2(n+1)+n(c_2+c_3+c_4+2c_7)+(c_4+c_5+c_6)(\frac{n^2}{2}+\frac{n}{2})\\
