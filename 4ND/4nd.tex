@@ -12,6 +12,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{cancel}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage[normalem]{ulem}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -24,6 +25,8 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.95}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{% <---- BEWARE
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
@@ -69,6 +72,73 @@ Matosi, kad $a=5$,$b=2$,$d=2$. Kadangi $5 > 2^2$, gauname:
 Matosi, kad $a=3$,$b=3$,$d=2$. Kadangi $3 < 3^2$, gauname:
 \[L(n)=O(n^2)\]
 \section{Uždavinys}
+\[NAME =  [A, B, C, D, E]\]
+\[SIZE =  [3, 4, 5, 7, 9]\]
+\[VALUE = [5, 7, 9, 12, 15]\]
+\[M=19\]
+\begin{center}
+\begin{tabular}{ c c c c c c c c }
+  \hline
+  SIZE & VALUE & COMBO & A & B & C & D & E\\
+  \hline
+  1     & 0     & -       & - & - & - & - & -\\
+  2     & 0     & -       & - & - & - & - & -\\
+  3     & 5     & A       & \circled{0/5} & - & - & - & -\\
+  4     & 7     & B       & 1/5  & \circled{0/7} & - & - & -\\
+  5     & 9     & C       & 2/5  & 1/7 & \circled{0/9} & - & -\\
+  6     & 10    & AA      & \circled{3/10}  & 2/7 & 1/9 & - & -\\
+  7     & 12    & D       & 3/10  & 2/7 & 1/9 & \circled{0/12} & -\\
+  8     & 14    & BB      & 5/14  & \circled{4/14} & 3/14 & 1/12 & -\\
+  9     & 16    & BC      & 6/15  & 5/16 & \circled{4/16} & 2/12 & 0/15\\
+  10    & 18    & CC      & 7/17  & 6/17 & \circled{5/18} & 3/17 & 1/15\\
+  11    & 19    & ABB     & \circled{8/19}  & 7/19 & 6/19 & 4/19 & 2/15\\
+  12    & 21    & BBB     & 9/21  & \circled{8/21} & 7/21 & 5/21 & 3/20\\
+  13    & 23    & BBC     & 10/23  & \circled{9/23} & 8/23 & 6/22 & 4/22\\
+  14    & 25    & BCC     & 11/24  & \circled{10/25} & 9/25 & 7/24 & 5/24\\
+  15    & 27    & CCC     & 12/26  & 11/26 & \circled{10/27} & 8/26 & 6/25\\
+  16    & 28    & BBBB    & 13/28  & \circled{12/28} & 11/28 & 9/28 & 7/27\\
+  17    & 30    & BBBC     & 14/30  & 13/30 & \circled{12/30} & 10/30 & 8/29\\
+  18    & 32    & BBCC     & 15/32  & 14/32 & \circled{13/32} & 11/31 & 9/31\\
+  19    & 34    & BCCC     & 16/30  & 15/30 & \circled{14/30} & 12/30 & 10/29\\
+\end{tabular}
+\end{center}
+
+Galutinė daiktų kombinacija B,C,C,C. Taigi pasitikrinkime ar gavome teisingą atsakymą.\\
+\begin{center}
+\begin{tabular}{ c c c c c c c c c c c c c c c c c c c c }
+  \hline
+  $i$        & 1 & 2 & 3 & 4 & 5 & 6  & 7  & 8  & 9  & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19\\
+  \hline
+  \multicolumn{20}{c}{j=1}\\
+  \hline
+  $COST[i]$ & 0 & 0 & 5 & 5 & 5 & 10 & 10 & 10 & 15 & 15 & 15 & 20 & 20 & 20 & 25 & 25 & 25 & 30 & 30\\
+  $BEST[i]$  &   &   & 1 & 1 & 1 & 1  & 1  & 1  & 1  & 1  & 1  &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1\\
+  \hline
+  \multicolumn{20}{c}{j=2}\\
+  \hline
+  $COST[i]$ & 0 & 0 & 5 & 7 & 7 & 10 & 12 & 14 & 15 & 17 & 19 & 21 & 22 & 24 & 26 & 28 & 29 & 31 & 33\\
+  $BEST[i]$ &   &   & 1 & 2 & 2 & 1 & 2 & 2 & 1 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2\\
+  \hline
+  \multicolumn{20}{c}{j=3}\\
+  \hline
+  $COST[i]$ & 0 & 0 & 5 & 7 & 9 & 10 & 12 & 14 & 16 & 18 & 19 & 21 & 23 & 25 & 27 & 28 & 30 & 32 & 34\\
+  $BEST[i]$ &   &   & 1 & 2 & 3 & 1 & 2 & 2 & 3 & 3 & 2 & 2 & 3 & 3 & 3 & 2 & 3 & 3 & 3\\
+  \hline
+  \multicolumn{20}{c}{j=4}\\
+  \hline
+  $COST[i]$ & 0 & 0 & 5 & 7 & 9 & 10 & 12 & 14 & 16 & 18 & 19 & 21 & 23 & 25 & 27 & 28 & 30 & 32 & 34\\
+  $BEST[i]$ &   &   & 1 & 2 & 3 & 1 & 2 & 2 & 3 & 3 & 2 & 2 & 3 & 3 & 3 & 2 & 3 & 3 & 3\\
+  \hline
+  \multicolumn{20}{c}{j=5}\\
+  \hline
+  $COST[i]$ & 0 & 0 & 5 & 7 & 9 & 10 & 12 & 14 & 16 & 18 & 19 & 21 & 23 & 25 & 27 & 28 & 30 & 32 & 34\\
+  $BEST[i]$ &   &   & 1 & 2 & 3 & 1 & 2 & 2 & 3 & 3 & 2 & 2 & 3 & 3 & 3 & 2 & 3 & 3 & 3\\
+  $NAME[i]$ &   &   & A & B & C & A & B & B & C & C & B & B & C & C & C & B & C & C & C\\
+  \hline
+\end{tabular}
+\end{center}
+
+Paskutinis daiktas $C$ jo dydis $5$, priešpaskutinis NAME$[19 - 5] = C$, priešpriešpaskutinis NAME$[14 - 5] = C$, bei pirmas daiktas NAME$[9-5] = B$. Taigi gauname rinkinį B,C,C,C.
 
 \section{Uždavinys}
 
