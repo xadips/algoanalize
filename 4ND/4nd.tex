@@ -1,0 +1,75 @@
+\documentclass[a4paper,lithuanian]{article}
+% Hello
+\usepackage[utf8]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\color{dkgreen},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+\title{Algoritmų Analizė 4 N.D\\11 Variantas}
+
+\author{
+  Ričardas Čubukinas 1910620\\
+  Informatika III Kursas 2 Grupė\\
+  VU MIF
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Uždavinys}
+\subsection*{(a)}
+\[~L(n)=5L(n/2)+n^2\]
+Matosi, kad $a=5$,$b=2$,$d=2$. Kadangi $5 > 2^2$, gauname:
+\[L(n)=O(n^{\log_2{5}})\approx{}O(n^{2.3219})\]
+\subsection*{(b)}
+\[L(n)=3L(n/3)+18n^2\]
+Matosi, kad $a=3$,$b=3$,$d=2$. Kadangi $3 < 3^2$, gauname:
+\[L(n)=O(n^2)\]
+\section{Uždavinys}
+
+\section{Uždavinys}
+
+\end{document}

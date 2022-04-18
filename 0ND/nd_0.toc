@@ -1,0 +1,37 @@
+\selectlanguage *{lithuanian}
+\contentsline {section}{Sąvokų apibrėžimai}{2}{section*.2}%
+\contentsline {section}{Įvadas}{3}{section*.3}%
+\contentsline {section}{\numberline {1.}Pagrindinė tiriamoji dalis}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1.}Poskyris}{4}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.}Skirsnis}{4}{subsubsection.1.1.1}%
+\contentsline {paragraph}{\numberline {1.1.1.1.}Straipsnis}{4}{paragraph.1.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2.}Skirsnis}{4}{subsubsection.1.1.2}%
+\contentsline {section}{\numberline {2.}Skyrius}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1.}Poskyris}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2.}Poskyris}{5}{subsection.2.2}%
+\contentsline {section}{Išvados}{6}{section*.4}%
+\contentsline {section}{Literatūra}{7}{section*.5}%
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{lithuanian}
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{lithuanian}
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{lithuanian}
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{lithuanian}
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{lithuanian}
+\def \@dotsep {1000}
+\thispagestyle {empty}
+\contentsline {section}{Priedas Nr.1}{}{appendix.A}%
+\contentsline {section}{Priedas Nr.2}{}{appendix.B}%

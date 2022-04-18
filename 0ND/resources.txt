@@ -1,0 +1,4 @@
+https://www.csc.kth.se/~viggo/wwwcompendium/node166.html
+https://www.geeksforgeeks.org/shortest-superstring-problem/
+http://www.math.wsu.edu/math/faculty/bkrishna/FilesMath574/Papers/ApproxAlgosSCS.pdf
+https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Notes/wan-ba-notes.pdf

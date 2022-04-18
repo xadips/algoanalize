@@ -1,0 +1,16 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'nd_0.blg'
+[69] biber:340> INFO - === Thu Mar 24, 2022, 18:19:04
+[81] Biber.pm:418> INFO - Reading 'nd_0.bcf'
+[149] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
+[162] Biber.pm:4383> INFO - Processing section 0
+[172] Biber.pm:4574> INFO - Looking for bibtex file 'bibliografija.bib' for section 0
+[173] bibtex.pm:1713> INFO - LaTeX decoding ...
+[182] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliografija.bib'
+[278] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[278] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[278] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'lt-LT'
+[287] bbl.pm:654> INFO - Writing 'nd_0.bbl' with encoding 'UTF-8'
+[292] bbl.pm:757> INFO - Output to nd_0.bbl
+[292] Biber.pm:130> WARN - BibTeX subsystem: /tmp/biber_tmp_IDVI/6955ee10f59c98996e47ed9126b28380_66422.utf8, line 4, warning: 148 characters of junk seen at toplevel
+[292] Biber.pm:132> INFO - WARNINGS: 1
