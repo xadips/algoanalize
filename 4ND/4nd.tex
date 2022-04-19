@@ -4,8 +4,9 @@
 \usepackage[L7x]{fontenc}
 \usepackage[lithuanian]{babel}
 \usepackage{graphicx}
+\usepackage{tikz-qtree}
 \usepackage{multirow}
-\usepackage{amsmath}
+\usepackage{amsmath,blkarray,booktabs, bigstrut}
 \usepackage{amssymb}
 \usepackage{multicol}
 \usepackage{tikz}
@@ -24,6 +25,7 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{% <---- BEWARE
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -76,6 +78,7 @@ Matosi, kad $a=3$,$b=3$,$d=2$. Kadangi $3 < 3^2$, gauname:
 \[SIZE =  [3, 4, 5, 7, 9]\]
 \[VALUE = [5, 7, 9, 12, 15]\]
 \[M=19\]
+Šiuo sprendimu ieškome geriausių daiktų rušių kiekvienam svoriui $1,...,M$. Stulpeliai su raidėmis, turi du skaičius (liko svorio/šio daikto vertė + likusio svorio kuprinės geriausia galima vertė).
 \begin{center}
 \begin{tabular}{ c c c c c c c c }
   \hline
@@ -141,5 +144,177 @@ Galutinė daiktų kombinacija B,C,C,C. Taigi pasitikrinkime ar gavome teisingą 
 Paskutinis daiktas $C$ jo dydis $5$, priešpaskutinis NAME$[19 - 5] = C$, priešpriešpaskutinis NAME$[14 - 5] = C$, bei pirmas daiktas NAME$[9-5] = B$. Taigi gauname rinkinį B,C,C,C.
 
 \section{Uždavinys}
+\[
+C = 
+\begin{bmatrix}
+\infty  & 8  & 14 & 27 & 12 \\
+7  & \infty  & 10 & 14 & 12 \\ 
+10 & 26 & \infty  & 24 & 15 \\
+27 & 6  & 27 & \infty  & 30 \\
+10 & 16 & 23 & 2  & \infty  \\
+\end{bmatrix}
+\]
+\[
+C  = 
+\begin{blockarray}{cccccc}
+\begin{block}{[ccccc]|c}
+  \infty  & 8  & 14 & 27 & 12 & -8 \\
+  7  & \infty  & 10 & 14 & 12 & -7\\ 
+  10 & 26 & \infty  & 24 & 15 & -10\\
+  27 & 6  & 27 & \infty  & 30 & -6\\
+  10 & 16 & 23 & 2  & \infty  & -2\\
+\end{block}
+\end{blockarray}%\vspace*{-1.25\baselineskip}
+\rightarrow{}
+C' = 
+\begin{blockarray}{ccccc}
+\begin{block}{[ccccc]}
+  \infty  & 0  & 6 & 19 & 4  \\
+  0  & \infty  & 3 & 7 & 5 \\ 
+  0 & 16 & \infty  & 14 & 5 \\
+  21 & 0  & 21 & \infty  & 24 \\
+  8 & 14 & \underline{21} & 0  & \underline{\infty{}}  \\
+\end{block}
+    &  & -3 & & -4 \\
+\end{blockarray}
+\rightarrow{}
+C'' = 
+\begin{blockarray}{ccccc}
+\begin{block}{[ccccc]}
+  \infty & 0      & 3      & 19     & 0      \\
+  0      & \infty & 0      & 7      & 1      \\ 
+  0      & 16     & \infty & 14     & 1      \\
+  21     & 0      & 18     & \infty & 20     \\
+  8      & 14     & 18     & 0      & \infty \\
+\end{block}
+\end{blockarray}
+\]
+Gavome apatinį rėžį $Bound(\cancel{0}) = 40$. Skaičiuojame rėžio pokyčius matricos $C''$ nuliniams elementams:
+\[
+D[1, 2] = 0.~
+D[1, 5] = 1.~
+D[2, 1] = 0.~
+D[2, 3] = 3.~
+D[3, 1] = 1.~
+\underline{D[4, 2] = 18}.~
+D[5, 4] = 15\\
+\]
+Kadangi $4 \rightarrow{} 2$ jau ėjome, nustatome $2, 4$ į $\infty{}$.
+\[
+C_1 = 
+\begin{blockarray}{ccccc}
+    & 1 & 3 & 4 & 5\\
+\begin{block}{c[cccc]}
+  1 & \infty  & 3      & 19     & 0      \\
+  2 & 0       & 0      & \infty & 1      \\ 
+  3 & 0       & \infty & 14     & 1      \\
+  5 & 8       & 18     & 0      & \infty \\
+\end{block}
+\end{blockarray}
+\rightarrow{}
+C_1'' = 
+\begin{blockarray}{ccccc}
+    & 1 & 3 & 4 & 5\\
+\begin{block}{c[cccc]}
+  1 & \infty  & 3      & 19     & 0      \\
+  2 & 0       & 0      & \infty & 1      \\ 
+  3 & 0       & \infty & 14     & 1      \\
+  5 & 8       & 18     & 0      & \infty \\
+\end{block}
+\end{blockarray}
+\]
+\[
+D[1, 5] = 4.~
+D[2, 1] = 0.~
+D[2, 3] = 3.~
+D[3, 1] = 1.~
+\underline{D[5, 4] = 22}
+\]
+Kadangi $2 \rightarrow{} 5$ jau keliavome, nustatome jį į $\infty$.
+\[
+C_2 = 
+\begin{blockarray}{cccc}
+    & 1 & 3 & 5\\
+\begin{block}{c[ccc]}
+  1 & \infty  & 3       & 0      \\
+  2 & 0       & 0       & \infty \\ 
+  3 & 0       & \infty  & 1      \\
+\end{block}
+\end{blockarray}
+\rightarrow{}
+C_2'' = 
+\begin{blockarray}{cccc}
+    & 1 & 3 & 5\\
+\begin{block}{c[ccc]}
+  1 & \infty  & 3       & 0      \\
+  2 & 0       & 0       & \infty \\ 
+  3 & 0       & \infty  & 1      \\
+\end{block}
+\end{blockarray}
+\]
+\[
+\underline{D[1, 5] = 4}.~
+D[2, 1] = 0.~
+D[2, 3] = 3.~
+D[3, 1] = 1
+\]
 
+Kadangi $2 \rightarrow{} 1$ jau keliavome, nustatome jį į $\infty$.
+\[
+C_3 = 
+\begin{blockarray}{ccc}
+    & 1 & 3 \\
+\begin{block}{c[cc]}
+  2 & \infty       & 0      \\ 
+  3 & 0       & \infty \\
+\end{block}
+\end{blockarray}
+\rightarrow{}
+C_3'' = 
+\begin{blockarray}{ccc}
+    & 1 & 3 \\
+\begin{block}{c[cc]}
+  2 & \infty       & 0       \\ 
+  3 & 0       & \infty  \\
+\end{block}
+\end{blockarray}
+\]
+
+Taigi galime eiti
+\[
+2 \rightarrow{} 3.~3\rightarrow{}1.
+\]
+Atmetame kitus pomedžius nes $Bound(\overline{15}) > 40$, $Bound(\overline{54}) > 40$, $Bound(\overline{42}) > 40$
+Gauname galutinį kelią:
+\[M_{opt} = 4 \xrightarrow{6} 2 \xrightarrow{10} 3 \xrightarrow{10} 1 \xrightarrow{12} 5 \xrightarrow{2} 4\]
+\[Cost(M_{opt})=6 + 10 + 10 + 12 + 2 =40\]
+
+\tikzset{every tree node/.style={minimum width=2em,draw,square},
+         blank/.style={draw=none},
+         edge from parent/.style=
+         {draw,edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}},
+         level distance=1.5cm}
+\begin{center}
+\begin{tikzpicture}[level distance=1.5cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=3cm}]
+  \node [draw] (t1) {$\cancel{0}$}
+    child {node (t2) [draw] {$\overline{42}$}}
+    child {node (t3) [draw] {$42$}
+    child {node (t4) [draw] {$\overline{54}$}}
+      child {node (t5) [draw] {$54$}
+          child {node (t6) [draw] {$\overline{15}$}}
+            child {node (t7) [draw] {$15$}}
+      }
+    };
+
+    \node (c1) [right of=t1,xshift=-0.2cm]{$\geq{}40$};
+    \node (c2) [right of=t2,xshift=-0.2cm]{$\geq{}58$};
+    \node (c3) [right of=t3,xshift=-0.2cm]{$\geq{}40$};
+    \node (c4) [right of=t4,xshift=-0.2cm]{$\geq{}62$};
+    \node (c5) [right of=t5,xshift=-0.2cm]{$\geq{}40$};
+    \node (c6) [right of=t6,xshift=-0.2cm]{$\geq{}44$};
+    \node (c7) [right of=t7,xshift=-0.2cm]{$=40$};
+\end{tikzpicture}
+\end{center}
 \end{document}
