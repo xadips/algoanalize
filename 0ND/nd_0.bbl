@@ -74,6 +74,37 @@
       \field{title}{Complexity and Approximation: Combinatorial Optimization Problems and Their Approximability Properties}
       \field{year}{1999}
     \endentry
+    \entry{ssparticle}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7deef97059ec7e32fe084bca82d72d29}{%
+           family={Gevezes},
+           familyi={G\bibinitperiod},
+           given={Theodoros},
+           giveni={T\bibinitperiod}}}%
+        {{hash=55bab4ed9b07a749aead9d8d196d0e3d}{%
+           family={Pitsoulis},
+           familyi={P\bibinitperiod},
+           given={Leonidas},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{27bcf268067a0422b2af3457c0d0813b}
+      \strng{fullhash}{27bcf268067a0422b2af3457c0d0813b}
+      \strng{bibnamehash}{27bcf268067a0422b2af3457c0d0813b}
+      \strng{authorbibnamehash}{27bcf268067a0422b2af3457c0d0813b}
+      \strng{authornamehash}{27bcf268067a0422b2af3457c0d0813b}
+      \strng{authorfullhash}{27bcf268067a0422b2af3457c0d0813b}
+      \field{labelalpha}{GP14}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Optimization in Science and Engineering: In Honor of the 60th Birthday of Panos M. Pardalos}
+      \field{langid}{english}
+      \field{title}{The Shortest Superstring Problem}
+      \field{year}{2014}
+      \field{pages}{189\bibrangedash 227}
+      \range{pages}{39}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

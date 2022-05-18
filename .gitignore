@@ -3,4 +3,14 @@
 *.fls
 *.log
 *.synctex.gz
+# Temporary files
+*.bbl
+*.out
+*.bcf
+*.blg
+*.run.xml
+*.toc
 *.pdf
+.vscode
+.vscode/*
+

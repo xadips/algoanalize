@@ -1,8 +1,12 @@
 \selectlanguage *{lithuanian}
 \contentsline {section}{Įvadas}{2}{section*.2}%
 \contentsline {section}{\numberline {1.}Brutalios Jėgos Algoritmas}{2}{section.1}%
-\contentsline {section}{Išvados}{2}{section*.3}%
-\contentsline {section}{Literatūra}{2}{section*.4}%
+\contentsline {subsection}{\numberline {1.1.}Pavyzdys}{2}{subsection.1.1}%
+\contentsline {section}{Išvados}{3}{section*.3}%
+\contentsline {section}{Literatūra}{3}{section*.4}%
+\selectlanguage *{english}
+\selectlanguage *[variant=us,ordinalmonthday=false]{english}
+\selectlanguage *{lithuanian}
 \selectlanguage *{english}
 \selectlanguage *[variant=us,ordinalmonthday=false]{english}
 \selectlanguage *{lithuanian}
