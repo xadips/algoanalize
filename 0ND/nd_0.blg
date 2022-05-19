@@ -1,16 +1,16 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'nd_0.blg'
-[65] biber:340> INFO - === Thu May 19, 2022, 00:41:57
-[77] Biber.pm:418> INFO - Reading 'nd_0.bcf'
-[140] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
-[155] Biber.pm:4383> INFO - Processing section 0
-[165] Biber.pm:4574> INFO - Looking for bibtex file 'bibliografija.bib' for section 0
-[165] bibtex.pm:1713> INFO - LaTeX decoding ...
-[176] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliografija.bib'
-[224] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[224] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[225] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'lt-LT'
-[228] bbl.pm:654> INFO - Writing 'nd_0.bbl' with encoding 'UTF-8'
-[230] bbl.pm:757> INFO - Output to nd_0.bbl
-[230] Biber.pm:130> WARN - BibTeX subsystem: /tmp/biber_tmp_AOzU/6955ee10f59c98996e47ed9126b28380_977549.utf8, line 4, warning: 148 characters of junk seen at toplevel
-[230] Biber.pm:132> INFO - WARNINGS: 1
+[68] biber:340> INFO - === Thu May 19, 2022, 22:58:09
+[80] Biber.pm:418> INFO - Reading 'nd_0.bcf'
+[145] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
+[159] Biber.pm:4383> INFO - Processing section 0
+[170] Biber.pm:4574> INFO - Looking for bibtex file 'bibliografija.bib' for section 0
+[171] bibtex.pm:1713> INFO - LaTeX decoding ...
+[182] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliografija.bib'
+[230] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[230] UCollate.pm:68> INFO - Overriding locale 'lt-LT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[230] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'lt-LT'
+[234] bbl.pm:654> INFO - Writing 'nd_0.bbl' with encoding 'UTF-8'
+[236] bbl.pm:757> INFO - Output to nd_0.bbl
+[236] Biber.pm:130> WARN - BibTeX subsystem: /tmp/biber_tmp_edLZ/6955ee10f59c98996e47ed9126b28380_27325.utf8, line 4, warning: 148 characters of junk seen at toplevel
+[236] Biber.pm:132> INFO - WARNINGS: 1

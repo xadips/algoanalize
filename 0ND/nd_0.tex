@@ -1,12 +1,14 @@
 \documentclass{VUMIFInfKursinis}
 \usepackage{algorithmicx}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage[noend]{algpseudocode}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{caption}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{url}
 
@@ -23,17 +25,14 @@
 \author{Ričardas Čubukinas}
 \supervisor{Asist., Dr. Valdas Dičiūnas}
 
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
 
 \date{Vilnius \\ \the\year}
 
 % Nustatymai
-\setmainfont{Palem}[
-  Extension = .ttf,
-  Path = Palemonas/,
-  UprightFont = *-nm,
-  BoldFont  = *-bd , 
-  ItalicFont  = *-it ,
-  BoldItalicFont = *-bi ]
+\setmainfont{Palemonas}
 
 \bibliography{bibliografija} 
 
@@ -45,7 +44,7 @@
 \tableofcontents
 
 \sectionnonum{Įvadas}
-Šiame darbe nagrinėsime „Shortest Common Substring“ problemą.
+Šiame darbe nagrinėsime „Shortest Common Superstring“ problemą.
 \begin{itemize}
   \item{\textbf{Duota:} Baigtinė abecelė $\Sigma$, baigtinis žodžių rinkinys $R$ sudaryta iš $\Sigma{}^*$.}
   \item{\textbf{Tikslas:} Surasti trumpiausią bendrą super-žodį $\omega$, tokį kad kiekvienas rinkinio žodis $x \in R$ yra žodžio $\omega$ subžodis, pvz $\omega =\omega{}_0x\omega{}_1$, kur $\omega{}_0,\omega{}_1 \in \Sigma{}^*$.}
@@ -54,20 +53,62 @@
 Ši problema priklauso NP-Hard problemų šeimai. Su šia problema susiduriama molekulinėje biologijoje, DNR sekose, tai teoriškai yra du žodžiai sudaryti iš raidžių {a, c, g, t}(atitinkamos raidės nukleotidams). Kadangi tiksliai nuskaityti DNR galime tik mažomis dalimis, dažnai susidūriama su DNR surinkimo problem, kuriame ir naudojami trumpiausio superžodžio algoritmai(taip pat ši problema yra paplitusi tarp virusų, nes jie persipina norėdami sutaupyti vietos ir turėti kuo platesnį genų fondą, šis uždavinys naudojamas modeliuoti virusinio genų fondo galaudinimą). Taip pat ši problema iškyla ir duomenų glaudinimo uždavinyje. Vienas iš būdų talpiai saugoti didelius kiekius duomenų yra juos atvaizduoti kaip superžodį su baigtinę abecelę, ir kiekvieną skirtingą elementą(žodį ar pan.) realizuoti kaip rodyklę į atitinkamą superžodyje vietą. \cite{ssparticle}
 
 
-\section{Brutalios Jėgos Algoritmas}
-Paieška vykdysime brutalios jėgos algoritmu. Tikriname rinkinio $R$ išdėstymą $P_i \in P$, kur P yra visi skirtingi rinkinio išdėstymai $n!$. Kiekviename išdėstyme tikriname visus šalia esančius žodžius kiek jie persipina tarpusavyje, išsaugome maksimalų persipinimą, jei daugiau nei nulis ir pridedame persipinančius žodžius prie trumpiausio subžodžio, taip pereiname visus žodžius kol gauname tos kombinacijos trumpiausia superžodį, jį išsaugome ir taip einame per kiekvieną kombinaciją ir gautą superžodį lyginame su praeitu išsaugodami trumpesnį kol pereiname visas rinkinių kombinacijas. 
-\subsection{Pavyzdys}
-Turime žodžių rinkinį $R=\{AAA, ABA, AAB\}$. Reikia išbandyti visas kombinacijas:
-\begin{enumerate}
-  \item{\{AAA, ABA, AAB\}}
-  \item{\{AAA, AAB, ABA\}}
-  \item{\{ABA, AAA, AAB\}}
-  \item{\{ABA, AAB, AAA\}}
-  \item{\{AAB, AAA, ABA\}}
-  \item{\{AAB, ABA, AAA\}}
-\end{enumerate}
+\section{Algoritmas}
+\subsection{Brutalios jėgos}
+Paieška vykdysime brutalios jėgos algoritmu. Tikriname rinkinio $R$ permutaciją $P_i \in P$, kur P yra visos skirtingos rinkinio permutacijos $n!$. Kiekvienoje permutacijoje tikriname visus šalia esančius žodžius kiek jie persipina tarpusavyje, išsaugome maksimalų persipinimą, jei daugiau nei nulis ir pridedame persipinančius žodžius prie trumpiausio subžodžio, taip pereiname visus žodžius kol gauname tos kombinacijos superžodį, jį išsaugome ir taip einame per kiekvieną permutaciją ir gautą superžodį lyginame su praeitu išsaugodami trumpesnį kol pereiname visas rinkinio permutacijas. 
 
+\subsection{Pavyzdys}
+Turime žodžių rinkinį $R=[AAA, ABA, AAB]$. Reikia išbandyti visas permutacijas. 
+\begin{enumerate}
+  \item{$P_1 =[AAA, ABA, AAB]$}
+  \item{$P_2 =[AAA, AAB, ABA]$}
+  \item{$P_3 =[ABA, AAA, AAB]$}
+  \item{$P_4 =[ABA, AAB, AAA]$}
+  \item{$P_5 =[AAB, AAA, ABA]$}
+  \item{$P_6 =[AAB, ABA, AAA]$}
+\end{enumerate}
+Tikriname $P_1 =[AAA, ABA, AAB]$:
+\[AA\pmb{A}\quad{}\pmb{A}B\pmb{A}\quad{}\pmb{A}AB\]
+Gauname superžodį $\omega{}_1 = "AAABAAB"$, kurio ilgis $|\omega{}_1| = 7$.\\
+Tikriname $P_2 =[AAA, AAB, ABA]$:
+\[A\pmb{AA} ~ \pmb{A\textcolor{blue}{A}}\textcolor{blue}{B} \quad{} \textcolor{blue}{AB}A\]
+Gauname superžodį $\omega{}_2 = "AAABA"$, kurio ilgis $|\omega{}_2| = 5$.\\
+Tikriname $P_3 =[ABA, AAA, AAB]$:
+\[AB\pmb{A}\quad{}\pmb{A}\pmb{AA}\quad{}\pmb{AA}A\]
+Gauname superžodį $\omega{}_3 = "ABAAAB"$, kurio ilgis $|\omega{}_3| = 6$.\\
+Tikriname $P_4 =[ABA, AAB, AAA]$:
+\[AB\pmb{A}\quad{}\pmb{A}AB\quad{}AAA\]
+Gauname superžodį $\omega{}_4 = "ABAABAAA"$, kurio ilgis $|\omega{}_4| = 8$.\\
+Tikriname $P_5 =[AAB, AAA, ABA]$:
+\[AAB\quad{}AA\pmb{A}\quad{}\pmb{A}BA\]
+Gauname superžodį $\omega{}_5 = "AABAAABA"$, kurio ilgis $|\omega{}_5| = 8$.\\
+Tikriname $P_6 =[AAB, ABA, AAA]$:
+\[A\pmb{AB}\quad{}\pmb{AB}\pmb{A}\quad{}\pmb{A}AA\]
+Gauname superžodį $\omega{}_6 = "AABAAA"$, kurio ilgis $|\omega{}_6| = 6$.\\
+Trumpiausias gautas superžodis $\omega{}_2$, o $|w_2|=5$.
+
+\subsection{Sudėtingumas}
 Šio algoritmo sudėtingumas blogiausiu atvėju(Teisinga rinkinio kombinacija - paskutinė, visi žodžiai nei kiek nepersipina ir jų visų ilgis toks pat kaip ir ilgiausio žodžio) bus $O(n! * n * m^2)$, kur $n$ - žodžių kiekis, $m$ - ilgiausio žodžio ilgis.
+
+\subsection{Euristinis algoritmas}
+
+\renewcommand{\algorithmcfname}{Algoritmas}
+
+\begin{algorithm}
+  \caption{Godus trumpiausias superžodis}
+  \DontPrintSemicolon
+  \textbf{Duomenys:} Žodžių rinkinys R. \;
+  \textbf{Rezultatas} Rinkinio R superžodis. \;
+  This is line one \;
+  This is line two numbered \;
+  This should be numbered \;
+  This should also be numbered
+\end{algorithm}
+
+
+\end{document}
+
+
 
 \sectionnonum{Išvados}
 Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
