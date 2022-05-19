@@ -1,6 +1,5 @@
 \documentclass{VUMIFInfKursinis}
 \usepackage{algorithmicx}
-\usepackage[noend]{algpseudocode}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{caption}
 \usepackage{amsfonts}
@@ -33,17 +32,15 @@
 
 % Nustatymai
 \setmainfont{Palemonas}
-
 \bibliography{bibliografija} 
-
-
+\renewcommand{\algorithmcfname}{Algoritmas}
 
 \begin{document}
 \maketitle
 
 \tableofcontents
 
-\sectionnonum{Įvadas}
+\sectionnonum{Problemos formulavimas}
 Šiame darbe nagrinėsime „Shortest Common Superstring“ problemą.
 \begin{itemize}
   \item{\textbf{Duota:} Baigtinė abecelė $\Sigma$, baigtinis žodžių rinkinys $R$ sudaryta iš $\Sigma{}^*$.}
@@ -53,11 +50,28 @@
 Ši problema priklauso NP-Hard problemų šeimai. Su šia problema susiduriama molekulinėje biologijoje, DNR sekose, tai teoriškai yra du žodžiai sudaryti iš raidžių {a, c, g, t}(atitinkamos raidės nukleotidams). Kadangi tiksliai nuskaityti DNR galime tik mažomis dalimis, dažnai susidūriama su DNR surinkimo problem, kuriame ir naudojami trumpiausio superžodžio algoritmai(taip pat ši problema yra paplitusi tarp virusų, nes jie persipina norėdami sutaupyti vietos ir turėti kuo platesnį genų fondą, šis uždavinys naudojamas modeliuoti virusinio genų fondo galaudinimą). Taip pat ši problema iškyla ir duomenų glaudinimo uždavinyje. Vienas iš būdų talpiai saugoti didelius kiekius duomenų yra juos atvaizduoti kaip superžodį su baigtinę abecelę, ir kiekvieną skirtingą elementą(žodį ar pan.) realizuoti kaip rodyklę į atitinkamą superžodyje vietą. \cite{ssparticle}
 
 
-\section{Algoritmas}
+\section{Algoritmai}
 \subsection{Brutalios jėgos}
-Paieška vykdysime brutalios jėgos algoritmu. Tikriname rinkinio $R$ permutaciją $P_i \in P$, kur P yra visos skirtingos rinkinio permutacijos $n!$. Kiekvienoje permutacijoje tikriname visus šalia esančius žodžius kiek jie persipina tarpusavyje, išsaugome maksimalų persipinimą, jei daugiau nei nulis ir pridedame persipinančius žodžius prie trumpiausio subžodžio, taip pereiname visus žodžius kol gauname tos kombinacijos superžodį, jį išsaugome ir taip einame per kiekvieną permutaciją ir gautą superžodį lyginame su praeitu išsaugodami trumpesnį kol pereiname visas rinkinio permutacijas. 
-
-\subsection{Pavyzdys}
+Paieška vykdysime brutalios jėgos algoritmu. Tikriname rinkinio $R$ permutaciją $P_i \in P$, kur P yra visos skirtingos rinkinio permutacijos $n!$. Kiekvienoje permutacijoje tikriname visus šalia esančius žodžius kiek jie persipina tarpusavyje, išsaugome maksimalų persipinimą, jei daugiau nei nulis ir pridedame persipinančius žodžius prie trumpiausio subžodžio, taip pereiname visus žodžius kol gauname tos kombinacijos superžodį, jį išsaugome ir taip einame per kiekvieną permutaciją ir gautą superžodį lyginame su praeitu išsaugodami trumpesnį kol pereiname visas rinkinio permutacijas.
+\begin{algorithm}[H]
+  \caption{Tikslus trumpiausias superžodis}
+  \DontPrintSemicolon
+  \textbf{Duomenys:} Žodžių rinkinys $R$ \;
+  \textbf{Rezultatas:} Trumpiausias superžodis $S$\;
+  $S \gets Konkatenuoti(R)$ \;
+  $T \gets ""$ \;
+  $P \gets RastiVisasPermutacijas(R)$ \;
+  \For{$P_i \in P$}{
+    \For{$x_j \in P_i$}{
+      $T \gets T + MaksimaliaiPerspinusiKombinacija(x_j, x_{j+1})$ \;
+    }
+    \If{$|T| < |S|$}{
+      $S \gets T$ \;
+    }
+    $T \gets ""$ \;
+  }
+\end{algorithm}
+\subsubsection{Pavyzdys}
 Turime žodžių rinkinį $R=[AAA, ABA, AAB]$. Reikia išbandyti visas permutacijas. 
 \begin{enumerate}
   \item{$P_1 =[AAA, ABA, AAB]$}
@@ -85,41 +99,31 @@ Gauname superžodį $\omega{}_5 = "AABAAABA"$, kurio ilgis $|\omega{}_5| = 8$.\\
 Tikriname $P_6 =[AAB, ABA, AAA]$:
 \[A\pmb{AB}\quad{}\pmb{AB}\pmb{A}\quad{}\pmb{A}AA\]
 Gauname superžodį $\omega{}_6 = "AABAAA"$, kurio ilgis $|\omega{}_6| = 6$.\\
-Trumpiausias gautas superžodis $\omega{}_2$, o $|w_2|=5$.
-
-\subsection{Sudėtingumas}
-Šio algoritmo sudėtingumas blogiausiu atvėju(Teisinga rinkinio kombinacija - paskutinė, visi žodžiai nei kiek nepersipina ir jų visų ilgis toks pat kaip ir ilgiausio žodžio) bus $O(n! * n * m^2)$, kur $n$ - žodžių kiekis, $m$ - ilgiausio žodžio ilgis.
+Trumpiausias gautas superžodis $\omega{}_2 = "AAABA"$, o $|w_2|=5$.
+\subsubsection{Sudėtingumas}
+Šio algoritmo sudėtingumas blogiausiu atvėju(Teisinga rinkinio kombinacija - paskutinė, visi žodžiai nei kiek nepersipina ir jų visų ilgis toks pat kaip ir ilgiausio žodžio) bus $O(n! * n * m)$, kur $n$ - žodžių kiekis, $m$ - ilgiausio žodžio ilgis.
 
 \subsection{Euristinis algoritmas}
+Kadangi brutalios jėgos algoritmas labai lėtas paaukojant dalį tikslumo galime pagreitinti algoritmą. Štai godaus algoritmo pavyzdys:
 
-\renewcommand{\algorithmcfname}{Algoritmas}
-
-\begin{algorithm}
+\begin{algorithm}[H]
   \caption{Godus trumpiausias superžodis}
   \DontPrintSemicolon
-  \textbf{Duomenys:} Žodžių rinkinys R. \;
-  \textbf{Rezultatas} Rinkinio R superžodis. \;
-  This is line one \;
-  This is line two numbered \;
-  This should be numbered \;
-  This should also be numbered
+  \textbf{Duomenys:} Žodžių rinkinys $R$. \;
+  \textbf{Rezultatas:} Rinkinio $R$ superžodis $S$. \;
+  $S \gets R$ \;
+  \While{$|S| > 1$}{
+    $z, a, b \gets MaksimaliaiPersipinantysZodziai(S)$ \;
+    $S[a] \gets z$ \;
+    $Delete(S[b])$ \;
+  }
+  $S$ lieka gautas superžodis.
 \end{algorithm}
-
-
-\end{document}
-
-
-
-\sectionnonum{Išvados}
-Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
-suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
+\subsubsection{Sudėtingumas ir tikslumas}
+Šio algoritmo sudėtingumas - $O(n^2 * m)$, kur $m$ - ilgiausio žodžio rinkinyje ilgis.
+Kol kas įrodytas tikslumas = 4, bet yra teigiama kad tikslumas yra bent 2 \cite{TARHIO1988131}. Taip pat sukurti algoritma iki tam tikro tikslumo nėra sunku, bet sukurti algoritmą su lygiai tam tikru tikslumu sudėtinga. \cite{ssparticle}
 
 \printbibliography[heading=bibintoc] % Literatūros šaltiniai aprašomi
-% bibliografija.bib faile. Šaltinių sąraše nurodoma panaudota literatūra,
-% kitokie šaltiniai. Abėcėlės tvarka išdėstoma tik darbe panaudotų (cituotų,
-% perfrazuotų ar bent paminėtų) mokslo leidinių, kitokių publikacijų
-% bibliografiniai aprašai (šiuo punktu pasirūpina LaTeX). Aprašai pateikiami
-% netransliteruoti.
 
 %\appendix  % Priedai
 

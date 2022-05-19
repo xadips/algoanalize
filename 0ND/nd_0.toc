@@ -1,7 +1,0 @@
-\selectlanguage *{lithuanian}
-\contentsline {section}{Įvadas}{2}{section*.2}%
-\contentsline {section}{\numberline {1.}Algoritmas}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1.}Brutalios jėgos}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2.}Pavyzdys}{2}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3.}Sudėtingumas}{3}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4.}Euristinis algoritmas}{4}{subsection.1.4}%
