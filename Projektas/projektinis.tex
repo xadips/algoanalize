@@ -1,6 +1,6 @@
 \documentclass{VUMIFInfKursinis}
 \usepackage{algorithmicx}
-
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{caption}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -33,6 +33,7 @@
 % Nustatymai
 \setmainfont{Palemonas}
 \bibliography{bibliografija} 
+\renewcommand{\algorithmcfname}{Algoritmas}
 
 \begin{document}
 \maketitle
@@ -40,8 +41,37 @@
 \tableofcontents
 
 \sectionnonum{Problemos formulavimas}
+\begin{itemize}
+  \item{\textbf{Duota:} Neorientuotas grafas $G=(V,E)$, turintis $n$ viršūnių ir $m$ briaunų.}
+  \item{\textbf{Rasti:} Visas maksimalias grafo G klikas, t.y. tokius viršūnių aibės poaibius kurie grafe $G$ sudaro pilną pografį ir kurių nebegalima praplėsti taip, kad vėl gautųsi pilnas pografis.}
+\end{itemize}
+
+Realizuoti visų grafo klikų paieškos su grįžimu atgal („backtracking“) algoritmą ir ištirti jo
+sudėtingumą:
+\begin{enumerate}
+  \item{Teoriškai.}
+  \item{Praktiškai kaip priklauso nuo grafo viršūnių skaičiaus $n$ ir briaunų skaičiaus $m$.}
+\end{enumerate}
 
 \section{Algoritmas}
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \caption{Bron Kerbosch}
+  \textbf{Duomenys:} Neorientuotas grafas $G=(V,E)$ \;
+  \textbf{Rezultatas:} Visos maksimalios grafo $G$ klikos \;
+  \SetKwFunction{FMain}{generate\_all\_cliques}
+  \SetKwProg{Fn}{Function}{:}{}
+  \Fn{\FMain{$G$, $R$, $X$}}{
+    \If{$G$ and $X$ \textbf{not} $\emptyset$}{
+      print($G$)  \;
+      \ForEach{vertex $v$ $\in$ $G$}{
+       generate\_all\_cliques($G$ $\cap$ $N(v)$, $R$ $\cup$ $\{v\}$, $X$ $\cap$ $N(v)$) \;
+       $G \gets G \setminus {v}$ \;
+       $X \gets X \setminus {v}$ \;
+      }
+    }
+  }
+\end{algorithm}
 
 % Eksperimentavimas su skirtingais duomenimis vykdymo laikas ats ir t.t
 \section{Eksperimentai}
