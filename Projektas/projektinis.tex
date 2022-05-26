@@ -54,22 +54,38 @@ sudėtingumą:
 \end{enumerate}
 
 \section{Algoritmas}
+Bron-Kerbosch algoritmo forma yra rekursinis grįžtamasis(„backtracking“) algoritmas, kuriuo ieškoma visų maksimalių klikų duotame grafe $G$. Esant trims nesujungtoms viršūnių aibėms $R$, $P$ ir $X$, randamos maksimalios klikos, į kurias įeina visos $R$ viršūnės, kai kurios $P$ viršūnės ir nė viena $X$ viršūnė. Kiekvieno algoritmo iškvietimo metu $P$ ir $X$ yra nesujungtos aibės, kurių sąjungą sudaro tos viršūnės, kurios, pridėjus jas prie R, sudaro kliką. Kitaip tariant, $P \cup X$ yra aibė viršūnių, kurios yra sujungtos su kiekvienu $R$ elementu.
+
+Rekursija pradedama nustatant, kad $R$ ir $X$ yra tuščia aibė, o $P$ - grafo viršūnių aibė. Per kiekvieną rekursinį iškvietimą algoritmas paeiliui nagrinėja $P$ viršūnes; jei tokių viršūnių nėra, jis arba praneša, kad $R$ yra maksimali klika (jei $X$ tuščia), arba grįžta atgal. Kiekvienai viršūnei $v$, pasirinktai iš $P$, algoritmas atlieka pasikartojantį iškvietimą, per kurį $v$ pridedama prie $R$ ir per kurį $P$ ir $X$ apsiriboja $v$ kaimynų aibe $N(v)$, kurioje surandami ir pranešami visi $R$ klikos plėtiniai, kuriuose yra $v$. Tada $v$ perkeliama iš $P$ į $X$, kad į ją nebūtų atsižvelgta būsimuose klikose, ir tęsiamas darbas su kita $P$ viršūne. 
+
+Tačiau aprašyta pagrindinė algoritmo forma yra neefektyvi, kai grafai turi daug nemaksimalių klikų: kiekvienai klikai, nesvarbu, ar ji maksimali, ar ne, atliekamas rekursinis iškvietimas. Siekdami sutaupyti laiko ir leisti algoritmui greičiau grįžti į paieškos šakas, kuriose nėra maksimalių klikų, Bron ir Kerbosch įvedė algoritmo variantą, apimantį "atsparos tašką" $u$, parinktą iš iš $P \cup X$. Bet kurioje maksimalioje klikoje turi būti arba $u$, arba vienas iš jos neesančių kaimynų, nes priešingu atveju klika galėtų būti padidinta į ją įtraukus $u$. Todėl kiekviename algoritmo rekursyviame iškvietime į $R$ pridedamos viršūnės $v$ pasirinkimo variantai turi būti tikrinami tik $u$ ir jos ne kaimynės.
+
+Translated with www.DeepL.com/Translator (free version)
+
 \begin{algorithm}[H]
   \DontPrintSemicolon
-  \caption{Bron Kerbosch}
+  \caption{Bron Kerbosch su atsparos tašku}
   \textbf{Duomenys:} Neorientuotas grafas $G=(V,E)$ \;
   \textbf{Rezultatas:} Visos maksimalios grafo $G$ klikos \;
-  \SetKwFunction{FMain}{generate\_all\_cliques}
+  $P \gets V$ \;
+  $N \gets \emptyset$ \;
+  \ForEach{briauna $e_i, e_j$ $\in$ E}{
+    $N[e_i] \gets N[e_i] + e_j$ \;
+    $N[e_j] \gets N[e_j] + e_i$ \;
+  }
+  \SetKwFunction{FMain}{generuoti\_maksimalias\_klikas}
   \SetKwProg{Fn}{Function}{:}{}
-  \Fn{\FMain{$G$, $R$, $X$}}{
-    \If{$G$ and $X$ \textbf{not} $\emptyset$}{
-      print($G$)  \;
-      \ForEach{vertex $v$ $\in$ $G$}{
-       generate\_all\_cliques($G$ $\cap$ $N(v)$, $R$ $\cup$ $\{v\}$, $X$ $\cap$ $N(v)$) \;
-       $G \gets G \setminus {v}$ \;
-       $X \gets X \setminus {v}$ \;
-      }
+  \Fn{\FMain{$P$, $R$, $X$}}{
+    \If{$P$ and $X$ \textbf{not} $\emptyset$}{
+      paskelbti R kaip maksimalią kliką  \;
     }
+      parenkame atsparos tašką - briauną $u$ iš $P \cap X$ \;
+      \ForEach{briauna $v$ $\in$ $P \setminus N(u)$}{
+       \FMain{$P$ $\cap$ $N(v)$, $R$ $\cup$ $\{v\}$, $X$ $\cap$ $N(v)$} \;
+       $P \gets P \setminus \{v\}$ \;
+       $X \gets X \setminus \{v\}$ \;
+      }
+    
   }
 \end{algorithm}
 
