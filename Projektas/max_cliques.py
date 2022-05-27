@@ -2,7 +2,7 @@ import random
 import collections
 import networkx as nx
 #from networkx.generators.random_graphs import erdos_renyi_graph
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import time
 
 print("Įveskite grafą G(V, E):")
